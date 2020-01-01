@@ -20,7 +20,9 @@ void UWorldPosition::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+	UE_LOG(LogTemp, Display, TEXT("This is Display verbosity. It is in grey text."))
+	UE_LOG(LogTemp, Warning, TEXT("This is a Warning."))
+	UE_LOG(LogTemp, Error, TEXT("This is an Error."))
 }
 
 
@@ -31,4 +33,3 @@ void UWorldPosition::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 	// ...
 }
-
