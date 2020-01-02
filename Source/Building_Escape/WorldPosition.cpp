@@ -2,6 +2,7 @@
 
 
 #include "WorldPosition.h"
+#include "GameFramework/Actor.h"
 
 // Sets default values for this component's properties
 UWorldPosition::UWorldPosition()
@@ -18,11 +19,7 @@ UWorldPosition::UWorldPosition()
 void UWorldPosition::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
-	UE_LOG(LogTemp, Display, TEXT("This is Display verbosity. It is in grey text."))
-	UE_LOG(LogTemp, Warning, TEXT("This is a Warning."))
-	UE_LOG(LogTemp, Error, TEXT("This is an Error."))
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *GetOwner()->GetName());
 }
 
 
