@@ -17,7 +17,7 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	InitialYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = InitialYaw;
-	TargetYaw = InitialYaw + 90.f;
+	TargetYaw += InitialYaw;
 }
 
 // Called every frame
@@ -27,12 +27,8 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *GetOwner()->GetActorRotation().ToString())
 	UE_LOG(LogTemp, Warning, TEXT("Yaw is: %f"), GetOwner()->GetActorRotation().Yaw)
 
-	CurrentYaw = FMath::Lerp(CurrentYaw, TargetYaw, 0.02f);
-	FRotator DoorRotation = GetOwner()->GetActorRotation();
-	DoorRotation.Yaw = CurrentYaw;
-	GetOwner()->SetActorRotation(DoorRotation);
-
-	/*FRotator OpenDoor{InitialYaw};
-	OpenDoor.Yaw = FMath::Lerp(CurrentYaw, TargetYaw, 0.02f);
-	GetOwner()->SetActorRotation(OpenDoor);*/
+	CurrentYaw = FMath::Lerp(CurrentYaw, TargetYaw, 0.02f); //this is how we open the door. We go from CurrentYaw to TargetYaw at a speed of 0.02
+	FRotator DoorRotation = GetOwner()->GetActorRotation(); //this is what our current doors' rotations are
+	DoorRotation.Yaw = CurrentYaw; //the yaw of DoorRotation needs to be the linear interpolation of CurrentYaw and TargetYaw
+	GetOwner()->SetActorRotation(DoorRotation); //set this door's rotations to DoorRotation
 }
