@@ -30,5 +30,9 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	CurrentYaw = FMath::Lerp(CurrentYaw, TargetYaw, DeltaTime * 1.f); //this is how we open the door. We go from CurrentYaw to TargetYaw at a speed of 0.02. DeltaTime ensure framerate independence (door will open at same speed no matter what framerate the game is running on)
 	FRotator DoorRotation = GetOwner()->GetActorRotation(); //this is what our current doors' rotations are
 	DoorRotation.Yaw = CurrentYaw; //the yaw of DoorRotation needs to be the linear interpolation of CurrentYaw and TargetYaw
-	GetOwner()->SetActorRotation(DoorRotation); //set this door's rotations to DoorRotation
+
+	//if(PressurePlate->IsOverlappingActor(GetWorld()->GetFirstPlayerController()->GetPawn()))
+	//{
+		 GetOwner()->SetActorRotation(DoorRotation); //set this door's rotations to DoorRotation
+	//}
 }
