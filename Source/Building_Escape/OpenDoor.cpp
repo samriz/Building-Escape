@@ -31,8 +31,8 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	FRotator DoorRotation = GetOwner()->GetActorRotation(); //this is what our current doors' rotations are
 	DoorRotation.Yaw = CurrentYaw; //the yaw of DoorRotation needs to be the linear interpolation of CurrentYaw and TargetYaw
 
-	//if(PressurePlate->IsOverlappingActor(GetWorld()->GetFirstPlayerController()->GetPawn()))
-	//{
+	if(PressurePlate->IsOverlappingActor(GetWorld()->GetFirstPlayerController()->GetPawn()))//if the Pressure Plate comes into contact with our pawn
+	{
 		 GetOwner()->SetActorRotation(DoorRotation); //set this door's rotations to DoorRotation
-	//}
+	}
 }
