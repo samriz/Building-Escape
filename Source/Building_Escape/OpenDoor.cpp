@@ -18,21 +18,23 @@ void UOpenDoor::BeginPlay()
 	InitialYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = InitialYaw;
 	TargetYaw += InitialYaw;
+	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
 }
 
 // Called every frame
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *GetOwner()->GetActorRotation().ToString())
-	UE_LOG(LogTemp, Warning, TEXT("Yaw is: %f"), GetOwner()->GetActorRotation().Yaw)
 
+	//if the Pressure Plate comes into contact with our pawn
+	if(PressurePlate->IsOverlappingActor(ActorThatOpens)) OpenDoor(DeltaTime);
+}
+
+void UOpenDoor::OpenDoor(float DeltaTime)
+{
 	CurrentYaw = FMath::Lerp(CurrentYaw, TargetYaw, DeltaTime * 1.f); //this is how we open the door. We go from CurrentYaw to TargetYaw at a speed of 0.02. DeltaTime ensure framerate independence (door will open at same speed no matter what framerate the game is running on)
 	FRotator DoorRotation = GetOwner()->GetActorRotation(); //this is what our current doors' rotations are
 	DoorRotation.Yaw = CurrentYaw; //the yaw of DoorRotation needs to be the linear interpolation of CurrentYaw and TargetYaw
 
-	if(PressurePlate->IsOverlappingActor(GetWorld()->GetFirstPlayerController()->GetPawn()))//if the Pressure Plate comes into contact with our pawn
-	{
-		 GetOwner()->SetActorRotation(DoorRotation); //set this door's rotations to DoorRotation
-	}
+	GetOwner()->SetActorRotation(DoorRotation); //set this door's rotations to DoorRotation
 }
