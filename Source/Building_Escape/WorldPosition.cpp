@@ -17,7 +17,8 @@ void UWorldPosition::BeginPlay()
 {
 	Super::BeginPlay();
 	//UE_LOG(LogTemp, Warning, TEXT("%s's transform: %s"), *GetOwner()->GetName(), *GetOwner()->GetTransform().ToString())
-	UE_LOG(LogTemp, Warning, TEXT("%s's actor location: %s"), *GetOwner()->GetName(), *GetOwner()->GetActorLocation().ToString())
+	//UE_LOG(LogTemp, Warning, TEXT("%s's actor location: %s"), *GetOwner()->GetName(), *GetOwner()->GetActorLocation().ToString())
+	GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Yellow, GetOwner()->GetActorLocation().ToString());
 }
 
 // Called every frame
