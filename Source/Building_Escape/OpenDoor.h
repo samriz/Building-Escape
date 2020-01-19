@@ -35,10 +35,15 @@ private:
 	float TargetYaw{90.f};
 
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
+	float DoorSpeed{0.3f};
 
 	UPROPERTY(EditAnywhere)
+	ATriggerVolume* PressurePlate;
+
+	//UPROPERTY(EditAnywhere)
 	AActor* ActorThatOpens;
 
 	void OpenDoor(float);
+
+	void CloseDoor(float);
 };
