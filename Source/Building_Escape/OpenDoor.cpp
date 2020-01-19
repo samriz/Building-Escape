@@ -19,6 +19,11 @@ void UOpenDoor::BeginPlay()
 	CurrentYaw = InitialYaw;
 	TargetYaw += InitialYaw;
 	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	if(!PressurePlate)
+	{
+		GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Yellow, FString::Printf(TEXT("%s has the OpenDoor component on it but no pressure plate."), *GetOwner()->GetName()));
+	}
 }
 
 // Called every frame
@@ -26,8 +31,8 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	//if the Pressure Plate comes into contact with our pawn
-	if(PressurePlate->IsOverlappingActor(ActorThatOpens)) OpenDoor(DeltaTime);
+	//if the object has a pressure plate attached to it and the Pressure Plate comes into contact with our pawn
+	if(PressurePlate && PressurePlate->IsOverlappingActor(ActorThatOpens)) OpenDoor(DeltaTime);
 }
 
 void UOpenDoor::OpenDoor(float DeltaTime)
