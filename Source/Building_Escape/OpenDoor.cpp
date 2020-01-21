@@ -1,6 +1,9 @@
 // Copyright Sameer Rizvi 2019
 
 #include "GameFramework/Actor.h"
+#include "Engine/Engine.h" //for AddOnScreenDebugMessage()
+#include "Engine/World.h" //for GetWorld() and GetFirstPlayerController()
+#include "GameFramework/PlayerController.h" //for GetPawn()
 #include "OpenDoor.h"
 
 // Sets default values for this component's properties
@@ -32,8 +35,16 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	//if the object has a pressure plate attached to it and the Pressure Plate comes into contact with our pawn
-	if(PressurePlate && PressurePlate->IsOverlappingActor(ActorThatOpens)) OpenDoor(DeltaTime);
-	else CloseDoor(DeltaTime);
+	if(PressurePlate && PressurePlate->IsOverlappingActor(ActorThatOpens)) 
+	{
+		OpenDoor(DeltaTime);
+		DoorLastOpened = GetWorld()->GetTimeSeconds();
+	}
+	else 
+	{
+		//if the door has been open longer than DoorCloseDelay, then shut the door
+		if(GetWorld()->GetTimeSeconds() - DoorLastOpened > DoorCloseDelay) CloseDoor(DeltaTime);
+	}
 }
 
 void UOpenDoor::OpenDoor(float DeltaTime)
