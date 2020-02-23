@@ -31,14 +31,20 @@ void UGrabber::BeginPlay()
 
 	if(InputComponent) 
 	{
-		UE_LOG(LogTemp, Warning, TEXT("The following object does have an Input Component attached to it: %s"), *GetOwner()->GetName())
-		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab); //passing address of function, not calling function
+
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release); //passing address of function, not calling function
 	}
 }
 
 void UGrabber::Grab()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grab key pressed."))
+}
+
+void UGrabber::Release()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab key released."))
 }
 
 // Called every frame
