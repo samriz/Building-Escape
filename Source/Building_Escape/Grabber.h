@@ -27,6 +27,8 @@ private:
 	float Reach = 100.f;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
 
 	//methods
 	void Grab();
@@ -34,5 +36,6 @@ private:
 	void FindPhysicsHandle();
 	void SetupInputComponent();
 	//return the first actor within reach with physics body
-	FHitResult GetFirstPhysicsBodyInReach() const;
+	FHitResult GetFirstPhysicsBodyInReach();
+	FVector GetLineTraceEnd();
 };

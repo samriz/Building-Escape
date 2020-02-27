@@ -23,6 +23,46 @@ void UGrabber::BeginPlay()
 	SetupInputComponent();
 }
 
+void UGrabber::Grab()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab key pressed."))
+
+	FHitResult HitResult = GetFirstPhysicsBodyInReach();//only raycast when key is pressed and see if we reach any actors with physics body collision channel set
+	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
+
+	//if we hit something then attach the physics handle
+	if(HitResult.GetActor())
+	{	//TODO attach physics handle
+		PhysicsHandle->GrabComponentAtLocation
+			(
+				ComponentToGrab,
+				NAME_None,
+				GetLineTraceEnd()
+			);
+	}
+}
+
+void UGrabber::Release()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab key released."))
+	//TODO remove/release the physics handle
+	PhysicsHandle->ReleaseComponent();
+}
+
+// Called every frame
+//TickComponent is a "hot loop" because it is called often
+void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	//if the physics handle is attached, move the object we are holding
+	FVector LineTraceEnd = GetLineTraceEnd();
+	if(PhysicsHandle->GrabbedComponent)
+	{
+		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+	}
+}
+
 void UGrabber::FindPhysicsHandle()
 {
 	//check for Physics Handle Component
@@ -43,38 +83,8 @@ void UGrabber::SetupInputComponent()
 	}
 }
 
-void UGrabber::Grab()
+FVector UGrabber::GetLineTraceEnd()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Grab key pressed."))
-
-	GetFirstPhysicsBodyInReach();//only raycast when key is pressed and see if we reach any actors with physics body collision channel set
-
-	//if we hit something then attach the physics handle
-	//TODO attach physics handle
-}
-
-void UGrabber::Release()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Grab key released."))
-	//TODO remove/release the physics handle
-}
-
-// Called every frame
-//TickComponent is a "hot loop" because it is called often
-void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	//if the physics handle is attached, move the object we are holding
-
-}
-
-FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
-{
-	//Get player's viewpoint
-	FVector PlayerViewPointLocation;
-	FRotator PlayerViewPointRotation;
-
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
 		OUT PlayerViewPointLocation, 
 		OUT PlayerViewPointRotation
@@ -82,7 +92,14 @@ FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 
 	//draw a line from player showing reach
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
-	DrawDebugLine(
+	return LineTraceEnd;
+}
+
+FHitResult UGrabber::GetFirstPhysicsBodyInReach()
+{
+	//Get player's viewpoint
+	FVector LineTraceEnd = GetLineTraceEnd();
+	/*DrawDebugLine(
 		GetWorld(), 
 		PlayerViewPointLocation, 
 		LineTraceEnd, 
@@ -91,7 +108,7 @@ FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 		0.f,
 		0, 
 		5.f
-	);
+	);*/
 
 	FHitResult Hit;
 	//ray-cast out to a certain distance (reach)
@@ -109,6 +126,5 @@ FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 
 	//log out to test
 	if(ActorHit) UE_LOG(LogTemp, Warning, TEXT("Line trace has hit: %s"), *ActorHit->GetName())
-
 	return Hit;
 }
