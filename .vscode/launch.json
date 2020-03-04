@@ -5,7 +5,7 @@
 			"name": "Building_Escape (Debug)",
 			"request": "launch",
 			"preLaunchTask": "Building_Escape Win64 Debug Build",
-			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\Udemy Classes\\C++\\Unreal Engine C++\\Building_Escape\\Binaries\\Win64\\UE4-Win64-Debug.exe",
+			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\GitHub\\Building-Escape\\Binaries\\Win64\\UE4-Win64-Debug.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
@@ -18,7 +18,7 @@
 			"name": "Building_Escape (DebugGame)",
 			"request": "launch",
 			"preLaunchTask": "Building_Escape Win64 DebugGame Build",
-			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\Udemy Classes\\C++\\Unreal Engine C++\\Building_Escape\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
+			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\GitHub\\Building-Escape\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
@@ -31,7 +31,7 @@
 			"name": "Building_Escape (Development)",
 			"request": "launch",
 			"preLaunchTask": "Building_Escape Win64 Development Build",
-			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\Udemy Classes\\C++\\Unreal Engine C++\\Building_Escape\\Binaries\\Win64\\UE4.exe",
+			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\GitHub\\Building-Escape\\Binaries\\Win64\\UE4.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
@@ -44,7 +44,7 @@
 			"name": "Building_Escape (Shipping)",
 			"request": "launch",
 			"preLaunchTask": "Building_Escape Win64 Shipping Build",
-			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\Udemy Classes\\C++\\Unreal Engine C++\\Building_Escape\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
+			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\GitHub\\Building-Escape\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
@@ -57,7 +57,7 @@
 			"name": "Building_Escape (Test)",
 			"request": "launch",
 			"preLaunchTask": "Building_Escape Win64 Test Build",
-			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\Udemy Classes\\C++\\Unreal Engine C++\\Building_Escape\\Binaries\\Win64\\UE4-Win64-Test.exe",
+			"program": "C:\\Users\\srizv\\OneDrive\\Documents\\GitHub\\Building-Escape\\Binaries\\Win64\\UE4-Win64-Test.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
@@ -72,7 +72,7 @@
 			"preLaunchTask": "Building_EscapeEditor Win64 Debug Build",
 			"program": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
 			"args": [
-				"C:\\Users\\srizv\\OneDrive\\Documents\\Udemy Classes\\C++\\Unreal Engine C++\\Building_Escape\\Building_Escape.uproject"
+				"C:\\Users\\srizv\\OneDrive\\Documents\\GitHub\\Building-Escape\\Building_Escape.uproject"
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
 			"stopAtEntry": false,
@@ -86,7 +86,7 @@
 			"preLaunchTask": "Building_EscapeEditor Win64 DebugGame Build",
 			"program": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Binaries\\Win64\\UE4Editor-Win64-DebugGame.exe",
 			"args": [
-				"C:\\Users\\srizv\\OneDrive\\Documents\\Udemy Classes\\C++\\Unreal Engine C++\\Building_Escape\\Building_Escape.uproject"
+				"C:\\Users\\srizv\\OneDrive\\Documents\\GitHub\\Building-Escape\\Building_Escape.uproject"
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
 			"stopAtEntry": false,
@@ -100,7 +100,7 @@
 			"preLaunchTask": "Building_EscapeEditor Win64 Development Build",
 			"program": "C:\\Program Files\\Epic Games\\UE_4.24\\Engine\\Binaries\\Win64\\UE4Editor.exe",
 			"args": [
-				"C:\\Users\\srizv\\OneDrive\\Documents\\Udemy Classes\\C++\\Unreal Engine C++\\Building_Escape\\Building_Escape.uproject"
+				"C:\\Users\\srizv\\OneDrive\\Documents\\GitHub\\Building-Escape\\Building_Escape.uproject"
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.24",
 			"stopAtEntry": false,
@@ -117,7 +117,7 @@
 			"args": [
 				"-projectfiles",
 				"-vscode",
-				"-project=\"C:\\Users\\srizv\\OneDrive\\Documents\\Udemy Classes\\C++\\Unreal Engine C++\\Building_Escape\\Building_Escape.uproject\"",
+				"-project=\"C:\\Users\\srizv\\OneDrive\\Documents\\GitHub\\Building-Escape\\Building_Escape.uproject\"",
 				"-game",
 				"-engine"
 			],

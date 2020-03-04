@@ -1,9 +1,10 @@
 {
 	"files.exclude": {
-		"C:/Users/srizv/OneDrive/Documents/Udemy Classes/C++/Unreal Engine C++/Building_Escape/.git": true,
-		"C:/Users/srizv/OneDrive/Documents/Udemy Classes/C++/Unreal Engine C++/Building_Escape/.vscode": true,
-		"C:/Users/srizv/OneDrive/Documents/Udemy Classes/C++/Unreal Engine C++/Building_Escape/Content": true,
-		"C:/Users/srizv/OneDrive/Documents/Udemy Classes/C++/Unreal Engine C++/Building_Escape/Intermediate": true,
-		"C:/Users/srizv/OneDrive/Documents/Udemy Classes/C++/Unreal Engine C++/Building_Escape/Saved": true
+		"C:/Users/srizv/OneDrive/Documents/GitHub/Building-Escape/.git": true,
+		"C:/Users/srizv/OneDrive/Documents/GitHub/Building-Escape/.vs": true,
+		"C:/Users/srizv/OneDrive/Documents/GitHub/Building-Escape/.vscode": true,
+		"C:/Users/srizv/OneDrive/Documents/GitHub/Building-Escape/Content": true,
+		"C:/Users/srizv/OneDrive/Documents/GitHub/Building-Escape/Intermediate": true,
+		"C:/Users/srizv/OneDrive/Documents/GitHub/Building-Escape/Saved": true
 	}
 }
