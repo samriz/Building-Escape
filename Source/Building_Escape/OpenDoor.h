@@ -43,10 +43,10 @@ private:
 	float DoorCloseDelay{0.1f};
 
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
+	ATriggerVolume* PressurePlate = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	float MassToOpenDoors = 50.f;
 
-	AActor* ActorThatOpens;
+	//AActor* ActorThatOpens = nullptr;
 };

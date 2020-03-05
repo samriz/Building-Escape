@@ -32,21 +32,22 @@ void UGrabber::Grab()
 
 	//if we hit something then attach the physics handle
 	if(HitResult.GetActor())
-	{	//TODO attach physics handle
-		PhysicsHandle->GrabComponentAtLocation
-			(
-				ComponentToGrab,
-				NAME_None,
-				GetLineTraceEnd()
-			);
+	{	
+		if(!PhysicsHandle) return;
+		PhysicsHandle->GrabComponentAtLocation //attach physics handle
+		(
+			ComponentToGrab,
+			NAME_None,
+			GetLineTraceEnd()
+		);
 	}
 }
 
 void UGrabber::Release()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grab key released."))
-	//TODO remove/release the physics handle
-	PhysicsHandle->ReleaseComponent();
+	if(!PhysicsHandle) return;
+	PhysicsHandle->ReleaseComponent(); //remove/release the physics handle
 }
 
 // Called every frame
@@ -57,6 +58,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	//if the physics handle is attached, move the object we are holding
 	FVector LineTraceEnd = GetLineTraceEnd();
+	if(!PhysicsHandle) return;
 	if(PhysicsHandle->GrabbedComponent)
 	{
 		PhysicsHandle->SetTargetLocation(LineTraceEnd);
@@ -67,18 +69,15 @@ void UGrabber::FindPhysicsHandle()
 {
 	//check for Physics Handle Component
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if(PhysicsHandle) UE_LOG(LogTemp, Warning, TEXT("Physics handle component found"))
 	if(!PhysicsHandle) UE_LOG(LogTemp, Error, TEXT("The following object does not have a Physics Handle Component attached to it: %s"), *GetOwner()->GetName())
 }
 
 void UGrabber::SetupInputComponent()
 {
 	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
-
 	if(InputComponent) 
 	{
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab); //passing address of function, not calling function
-
 		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release); //passing address of function, not calling function
 	}
 }

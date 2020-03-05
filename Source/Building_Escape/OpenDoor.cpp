@@ -24,12 +24,8 @@ void UOpenDoor::BeginPlay()
 	InitialYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = InitialYaw;
 	OpenAngle += InitialYaw;
-	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn(); //need to specify first player controller as there can be more than one controller in the scene
-
-	if(!PressurePlate)
-	{
-		GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Yellow, FString::Printf(TEXT("%s has the OpenDoor component on it but no pressure plate."), *GetOwner()->GetName()));
-	}
+	//ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn(); //need to specify first player controller as there can be more than one controller in the scene
+	if(!PressurePlate) GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Yellow, FString::Printf(TEXT("%s has the OpenDoor component on it but no pressure plate."), *GetOwner()->GetName()));
 }
 
 // Called every frame
@@ -44,7 +40,6 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 		OpenDoor(DeltaTime);
 		DoorLastOpened = GetWorld()->GetTimeSeconds();
 	}
-	//else if(ActorsMass < 40.f) GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Yellow, FString::Printf(TEXT("No enough mass on the Pressure Plate.")));
 	else 
 	{
 		//if the door has been open longer than DoorCloseDelay, then shut the door
@@ -71,20 +66,11 @@ void UOpenDoor::CloseDoor(float DeltaTime)
 float UOpenDoor::GetTotalMassOfActors()
 {
 	float TotalMass = 0.f;
-
-	if (!PressurePlate)
-	{
-		GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Yellow, FString::Printf(TEXT("PressurePlate is not set for %s"), *GetOwner()->GetName()));
-		//UE_LOG(LogTemp, Warning, TEXT("PressurePlate is not set for %s"), *GetOwner()->GetName());
-		return TotalMass;
-	}
-
+	if(!PressurePlate) return TotalMass;
 	//find all overlapping actors
 	TArray<AActor*> OverlappingActors;
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
-	
-	//add up their masses
-	for(AActor* Actor : OverlappingActors)
+	for (AActor* Actor : OverlappingActors) //add up their masses
 	{
 		TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
 	}
