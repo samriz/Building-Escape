@@ -1,6 +1,7 @@
 // Copyright Sameer Rizvi 2019
 
 #include "OpenDoor.h"
+#include "Components/AudioComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "Engine/Engine.h" //for AddOnScreenDebugMessage()
 #include "Engine/World.h" //for GetWorld() and GetFirstPlayerController()
@@ -26,6 +27,7 @@ void UOpenDoor::BeginPlay()
 	OpenAngle += InitialYaw;
 	//ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn(); //need to specify first player controller as there can be more than one controller in the scene
 	if(!PressurePlate) GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Yellow, FString::Printf(TEXT("%s has the OpenDoor component on it but no pressure plate."), *GetOwner()->GetName()));
+	FindAudioComponent();
 }
 
 // Called every frame
@@ -53,6 +55,14 @@ void UOpenDoor::OpenDoor(float DeltaTime)
 	FRotator DoorRotation = GetOwner()->GetActorRotation(); //this is what our current doors' rotations are
 	DoorRotation.Yaw = CurrentYaw; //the yaw of DoorRotation needs to be the linear interpolation of CurrentYaw and TargetYaw
 	GetOwner()->SetActorRotation(DoorRotation); //set this door's rotations to DoorRotation
+	
+	CloseDoorSoundPlayed = false;
+	if (!AudioComponent) return;
+	if (!OpenDoorSoundPlayed)
+	{
+		AudioComponent->Play();
+		OpenDoorSoundPlayed = true;
+	}
 }
 
 void UOpenDoor::CloseDoor(float DeltaTime)
@@ -61,6 +71,14 @@ void UOpenDoor::CloseDoor(float DeltaTime)
 	FRotator DoorRotation = GetOwner()->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;
 	GetOwner()->SetActorRotation(DoorRotation);
+	
+	OpenDoorSoundPlayed = false;
+	if (!AudioComponent) return;
+	if (!CloseDoorSoundPlayed) 
+	{
+		AudioComponent->Play();
+		CloseDoorSoundPlayed = true;
+	}
 }
 
 float UOpenDoor::GetTotalMassOfActors()
@@ -70,9 +88,18 @@ float UOpenDoor::GetTotalMassOfActors()
 	//find all overlapping actors
 	TArray<AActor*> OverlappingActors;
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
-	for (AActor* Actor : OverlappingActors) //add up their masses
+	for(AActor* Actor : OverlappingActors) //add up their masses
 	{
 		TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
 	}
 	return TotalMass;
+}
+
+void UOpenDoor::FindAudioComponent()
+{
+	AudioComponent = GetOwner()->FindComponentByClass<UAudioComponent>();
+	if(!AudioComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No Audio Component on %s"), *GetOwner()->GetName())
+	}
 }

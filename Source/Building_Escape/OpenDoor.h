@@ -26,6 +26,11 @@ public:
 	void OpenDoor(float);
 	void CloseDoor(float);
 	float GetTotalMassOfActors();
+	void FindAudioComponent();
+
+	//tracks if sound has been played
+	bool OpenDoorSoundPlayed = false;
+	bool CloseDoorSoundPlayed = true;
 
 private:
 	//private variables
@@ -47,6 +52,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float MassToOpenDoors = 50.f;
+
+	UPROPERTY()
+	UAudioComponent* AudioComponent = nullptr;
 
 	//AActor* ActorThatOpens = nullptr;
 };
